@@ -10,10 +10,9 @@ A simple wiki server written in Python 3.
 SQLite is also required, so the server can store the wiki pages.
 
 1. Go to your server folder, or create a new one
-2. Run the following commands:
+2. Run the following command:
    ```shell
-   curl -O install.py https://raw.githubusercontent.com/TylerMS887/wiki.py/main/install.py
-   python3 install.py
+   python3 -c '$(curl -fsSL https://raw.githubusercontent.com/TylerMS887/wiki.py/main/install.py)'
    ```
 3. Go through each step
 4. Exit the installer, and run the following command:
