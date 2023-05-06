@@ -191,5 +191,5 @@ def main():
     # Create an HTTP server object with the wiki handler class and a port number
     server = HTTPServer(("", 8000), WikiHandler)
     # Start the server and print a message
-    print("Starting wiki server on http://localhost:8000")
+    print("Starting Wiki.py wiki server on http://localhost:8000.")
     server.serve_forever()
