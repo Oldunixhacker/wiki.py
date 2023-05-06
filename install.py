@@ -94,22 +94,22 @@ while True:
     for i, step in enumerate(STEPS):
         if i < current_step:
             # If the step is already done, mark it as done and disable it
-            choices.append({"name": f"{step['name']}", "disabled": True})
+            choices.append({"name": f"✓ {step['name']}", "disabled": True})
         elif i == current_step:
             # If the step is the current one, mark it as current and enable it
-            choices.append({"name": f"  {step['name']}", "enabled": True})
+            choices.append({"name": f"{step['name']}", "enabled": True})
         else:
             # If the step is not yet done, mark it as pending and disable it
-            choices.append({"name": f"{step['name']}", "disabled": True})
+            choices.append({"name": f"… {step['name']}", "disabled": True})
     # Add an exit option to the choices
-    choices.append("X Cancel Installation")
+    choices.append("Cancel Installation")
     # Ask the user to select an option using questionary
     option = questionary.select(
         f"Installing Wiki.py ({current_step}/5)",
         choices=choices
     ).ask()
     # Check if the user selected an exit option
-    if option == "Cancel installation":
+    if option == "X Cancel installation":
         # If so, break the loop
         break
     else:
