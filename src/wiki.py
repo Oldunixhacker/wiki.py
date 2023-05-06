@@ -1,5 +1,5 @@
 # Import http.server, cgi and sqlite3 libraries
-from http.server import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandle
 import cgi
 import sqlite3
 
@@ -96,7 +96,7 @@ class WikiHandler(BaseHTTPRequestHandler):
               # Write the HTML string as the response body
               self.wfile.write(html.encode())
               # Check if the path is an existing page title
-            elif path in wiki:
+        elif path in wiki:
               # If so, send a 200 OK response with HTML content type
               self.send_response(200)
               self.send_header("Content-type", "text/html")
