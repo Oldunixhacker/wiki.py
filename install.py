@@ -1,6 +1,5 @@
 # Import requests, pip, configparser, questionary and os
 import requests
-import pip
 import configparser
 import questionary
 import os
@@ -22,7 +21,7 @@ CONFIG_FILE = "wikipy-options.py"
 
 # Define the title and content of the new page to create after the setup
 NEW_PAGE_TITLE = "Main Page"
-NEW_PAGE_CONTENT = "This is a new page created by the installer. You can edit or delete it as you wish."
+NEW_PAGE_CONTENT = "Wiki.py has been installed."
 
 # Define a function that installs the dependencies using pip
 def install_dependencies():
@@ -34,7 +33,7 @@ def install_dependencies():
         raise Exception("pip is not installed. Please install it before running this installer.")
     # Install the dependencies using pip
     for dep in DEPENDENCIES:
-        pip.main(["install", dep])
+        os.system("python3 -m pip install " + dep)
 
 # Define a function that downloads the wiki.py file and saves it as a local file
 def download_wiki():
@@ -47,8 +46,8 @@ def download_wiki():
 def configure_wiki():
     # Ask the user to select a language for their wiki using questionary
     language = questionary.select(
-        "What language do you want to use for your wiki?",
-        choices=["English", "Spanish", "French", "German", "Chinese", "Japanese", "Russian", "Arabic", "Hindi", "Other"]
+        "What language do you want to use for your wiki? (In ISO code)",
+        choices=["en", "es", "fr", "de", "zh", "ja", "ru", "ar", "hi", "Other"]
     ).ask()
     # If the user selects "Other", ask them to enter the ISO language code
     if language == "Other":
@@ -95,18 +94,18 @@ while True:
     for i, step in enumerate(STEPS):
         if i < current_step:
             # If the step is already done, mark it as done and disable it
-            choices.append({"name": f"{step['name']} (Done)", "disabled": True})
+            choices.append({"name": f"{step['name']}", "disabled": True})
         elif i == current_step:
             # If the step is the current one, mark it as current and enable it
-            choices.append({"name": f"{step['name']} (Current)", "enabled": True})
+            choices.append({"name": f"  {step['name']}", "enabled": True})
         else:
             # If the step is not yet done, mark it as pending and disable it
-            choices.append({"name": f"{step['name']} (Pending)", "disabled": True})
+            choices.append({"name": f"{step['name']}", "disabled": True})
     # Add an exit option to the choices
-    choices.append("Cancel installation")
+    choices.append("X Cancel Installation")
     # Ask the user to select an option using questionary
     option = questionary.select(
-        f"Current process ({current_step}/5)",
+        f"Installing Wiki.py ({current_step}/5)",
         choices=choices
     ).ask()
     # Check if the user selected an exit option
