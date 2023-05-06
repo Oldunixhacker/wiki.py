@@ -72,53 +72,47 @@ class WikiHandler(BaseHTTPRequestHandler):
         path = self.path.strip("/")
         # Check if the path is empty or "home"
         if path == "" or path == "home":
-            # If so, send a 200 OK response with HTML content type
-            self.send_response(200)
-            self.send_header("Content-type", "text/html")
-            self.end_headers()
-            # Create an HTML string that lists all the pages as links
-            html = f"<h1>{options['wikiViewerName']}</h1>"
-            html += "<ul>"
-            for key in wiki:
-                html += f"<li><a href='/{key}'>{key}</a></li>"
-            html += "</ul>"
-            # Add a link to create or edit a page
-            html += "<p><a href='/edit'>Create or edit a page</a></p>"
-            # Write the HTML string as the response body
-            self.wfile.write(html.encode())
+              # If so, send a 200 OK response with HTML content type
+              self.send_response(200)
+              self.send_header("Content-type", "text/html")
+              self.end_headers()
+              # Add a link to create or edit a page
+              html += "<p><a href='/edit'>Create or edit a page</a></p>"
+              # Write the HTML string as the response body
+              self.wfile.write(html.encode())
         # Check if the path is "edit"
         elif path == "edit":
-            # If so, send a 200 OK response with HTML content type
-            self.send_response(200)
-            self.send_header("Content-type", "text/html")
-            self.end_headers()
-            # Create an HTML string that shows a form to create or edit a page
-            html = f"<h1>{options['wikiViewerName']}</h1>"
-            html += "<h2>Edit <input type='text' name='title'></h2>"
-            html += "<form method='POST'>"
-            html += "<p><textarea name='content' rows='10' cols='50'></textarea></p>"
-            html += "<p><input type='submit' value='Save changes'></p>"
-            html += "</form>"
-            # Write the HTML string as the response body
-            self.wfile.write(html.encode())
-            # Check if the path is an existing page title
+              # If so, send a 200 OK response with HTML content type
+              self.send_response(200)
+              self.send_header("Content-type", "text/html")
+              self.end_headers()
+              # Create an HTML string that shows a form to create or edit a page
+              html = f"<h1>{options['wikiViewerName']}</h1>"
+              html += "<h2>Edit <input type='text' name='title'></h2>"
+              html += "<form method='POST'>"
+              html += "<p><textarea name='content' rows='10' cols='50'></textarea></p>"
+              html += "<p><input type='submit' value='Save changes'></p>"
+              html += "</form>"
+              # Write the HTML string as the response body
+              self.wfile.write(html.encode())
+              # Check if the path is an existing page title
             elif path in wiki:
-            # If so, send a 200 OK response with HTML content type
-            self.send_response(200)
-            self.send_header("Content-type", "text/html")
-            self.end_headers()
-            # Create an HTML string that shows the page title and content
-            html = f"<h1>{options['wikiViewerName']}</h1>"
-            html += f"<h2>{path}</h2>"
-            html += f"<p>{wiki[path]}</p>"
-            # Add a link to edit or delete the page
-            html += f"<p><a href='/edit?title={path}'>Edit this page</a></p>"
-            html += f"<p><a href='/delete?title={path}'>Delete this page</a></p>"
-            # Write the HTML string as the response body
-            self.wfile.write(html.encode())
+              # If so, send a 200 OK response with HTML content type
+              self.send_response(200)
+              self.send_header("Content-type", "text/html")
+              self.end_headers()
+              # Create an HTML string that shows the page title and content
+              html = f"<h1>{options['wikiViewerName']}</h1>"
+              html += f"<h2>{path}</h2>"
+              html += f"<p>{wiki[path]}</p>"
+              # Add a link to edit or delete the page
+              html += f"<p><a href='/edit?title={path}'>Edit this page</a></p>"
+              html += f"<p><a href='/delete?title={path}'>Delete this page</a></p>"
+              # Write the HTML string as the response body
+              self.wfile.write(html.encode())
             else:
-            # Return a 404 error if the path does not match any of the above cases
-            self.send_error(404, "Page not found")
+              # Return a 404 error if the path does not match any of the above cases
+              self.send_error(404, "Page not found")
 # Define a method that handles POST requests
 def do_POST(self):
     # Read the wiki data from the database
@@ -139,7 +133,7 @@ def do_POST(self):
         # Check if the title is empty
         if not title:
             # Return an error message if so
-            self.send_error(400, "Invalid title")
+            self.send_error(400, "Invalid title. See the Wiki.py API docs for more information.")
             return
         else:
             # Add or update the page to the dictionary
@@ -152,7 +146,7 @@ def do_POST(self):
             self.end_headers()
     else:
         # Return a 405 error if the path is not "edit"
-        self.send_error(405, "Method not allowed")
+        self.send_error(405, "You must edit through the edit page. See the Wiki.py API docs for more information.")
 
 # Define a method that handles DELETE requests
 def do_DELETE(self):
@@ -178,10 +172,10 @@ def do_DELETE(self):
             self.end_headers()
         else:
             # Return a 404 error if the title does not exist
-            self.send_error(404, "Page not found")
+            self.send_error(404, "Page with this title not found. See the Wiki.py API docs for more information.")
     else:
         # Return a 405 error if the path is not "delete"
-        self.send_error(405, "You must preform this operation through a specific page. See the Wiki.py docs for more information.")
+        self.send_error(405, "You must preform this operation via the delete page. See the Wiki.py API docs for more information.")
 # Define the main function that runs the wiki server
 def main():
     # Create the wiki table in the database if it does not exist
