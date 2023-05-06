@@ -90,8 +90,6 @@ current_step = 0
 
 # Define a loop that runs until the user exits or finishes the installer
 while True:
-    # Clear the screen using os.system
-    os.system("cls" if os.name == "nt" else "clear")
     # Create a list of choices for the installer menu based on the current step
     choices = []
     for i, step in enumerate(STEPS):
