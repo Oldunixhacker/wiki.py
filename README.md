@@ -6,8 +6,10 @@ A simple wiki server written in Python 3.
 ## Install
 
 > **Warning**: `pip` must be installed to install Wiki.py.
-`pip` is used to install neccesary dependencies and the installer largely depends on it.
+`pip` is used to install neccesary dependencies and the wiki largely depends on it.
 SQLite is also required, so the server can store the wiki pages.
+Of course, the `questionary` module is required to show the UI for the installer
+and show questions.
 
 1. Go to your server folder, or create a new one
 2. Run the following commands:
