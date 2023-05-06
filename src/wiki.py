@@ -1,5 +1,3 @@
-print("Wiki.py Server")
-
 # Import http.server, cgi and sqlite3 libraries
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
@@ -193,3 +191,9 @@ def main():
     # Start the server and print a message
     print("Starting Wiki.py wiki server on http://localhost:8000.")
     server.serve_forever()
+
+if __name__ == "__main__":
+    print("Wiki.py Server")
+    print("https://github.com/TylerMS887/wiki.py")
+    print("(C) 2023-present TylerMS887.\nFreely licensed for use and copying under the FreeBSD License:\n   https://github.com/TylerMS887/wiki.py/blob/main/LICENSE\n")
+    main()
